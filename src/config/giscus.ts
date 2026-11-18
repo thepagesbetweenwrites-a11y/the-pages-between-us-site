@@ -4,10 +4,10 @@
 // 3. Generate the IDs at https://giscus.app and paste them below.
 // Until `repo`, `repoId` and `categoryId` are filled in, the drawer shows setup steps instead.
 export const giscusConfig = {
-  repo: "", // e.g. "your-name/the-pages-between-us"
-  repoId: "", // e.g. "R_kgDO..."
-  category: "Guestbook",
-  categoryId: "", // e.g. "DIC_kwDO..."
+  repo: "thepagesbetweenwrites-a11y/the-pages-between-us-site",
+  repoId: "R_kgDOVy582w",
+  category: "Announcements",
+  categoryId: "DIC_kwDOVy58284DLaNT",
   mapping: "specific" as const,
   term: "tsukiyomi-books-counter",
   reactionsEnabled: "1",
