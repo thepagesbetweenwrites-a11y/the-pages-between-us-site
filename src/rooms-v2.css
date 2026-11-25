@@ -1,0 +1,561 @@
+/* ==========================================================
+   v2: Midnight Desk, Bento Dock, Walk Map, Atmosphere Mixer
+   ========================================================== */
+
+/* ---------- Desk hero + featured hardcover ---------- */
+.desk-line {
+  max-width: 40ch;
+  font-size: clamp(18px, 1.9vw, 24px);
+  line-height: 1.5;
+}
+.featured {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  padding-top: 4vh;
+}
+.featured-book {
+  position: relative;
+}
+.book3d {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 78vh;
+  margin: 0 auto;
+}
+.featured-tap {
+  margin: 0;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  opacity: 0.7;
+}
+.featured-hook {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(22px, 2.3vw, 30px);
+  line-height: 1.38;
+  color: var(--paper);
+  margin: 0 0 20px;
+  max-width: 30ch;
+}
+.featured-blurb {
+  font-size: clamp(16px, 1.35vw, 18px);
+}
+button.enter-btn {
+  cursor: pointer;
+}
+.desk-hero,
+.featured-copy,
+.dock-wrap,
+.site-foot,
+.featured-tap {
+  transition: opacity 0.9s var(--ease), filter 0.9s var(--ease);
+}
+.desk.is-opening .desk-hero,
+.desk.is-opening .featured-copy,
+.desk.is-opening .dock-wrap,
+.desk.is-opening .site-foot,
+.desk.is-opening .featured-tap {
+  opacity: 0;
+  filter: blur(6px);
+}
+
+/* ---------- Bento dock ---------- */
+.dock-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2vh 16px 14vh;
+}
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.magnetic.bento-cell {
+  display: block;
+  min-width: 0;
+}
+.bento-wide {
+  grid-column: span 2;
+}
+.bento-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  min-height: 160px;
+  height: 100%;
+  padding: 22px 22px 20px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01) 60%),
+    rgba(14, 13, 17, 0.52);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 20px 50px rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.5s var(--ease);
+}
+.bento-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(212, 163, 89, 0.2), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+.bento-tile:hover::before,
+.bento-tile:focus-visible::before {
+  opacity: 1;
+}
+a.bento-tile:hover {
+  border-color: rgba(212, 163, 89, 0.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 26px 70px rgba(212, 163, 89, 0.14);
+}
+a.bento-tile:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+.bento-lead {
+  border-color: rgba(212, 163, 89, 0.42);
+  background:
+    radial-gradient(120% 140% at 100% 0%, rgba(212, 163, 89, 0.26), transparent 60%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01) 60%),
+    rgba(14, 13, 17, 0.52);
+}
+.bento-kicker {
+  position: relative;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.bento-title {
+  position: relative;
+  font-family: var(--serif);
+  font-size: clamp(21px, 2vw, 27px);
+  line-height: 1.15;
+  color: var(--paper);
+  overflow-wrap: anywhere;
+}
+.bento-lead .bento-title {
+  font-size: clamp(26px, 2.8vw, 36px);
+}
+.bento-meta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--paper-dim);
+}
+.bento-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: var(--amber);
+  transition: transform 0.5s var(--ease);
+}
+a.bento-tile:hover .bento-icon {
+  transform: translate(3px, -3px);
+}
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e0683a;
+  animation: pulse 2.2s ease-out infinite;
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(224, 104, 58, 0.6);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 9px rgba(224, 104, 58, 0);
+  }
+}
+
+/* ---------- 12-minute walk map ---------- */
+.walk {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 78px 16px 24px;
+  pointer-events: none;
+}
+.walk::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(70% 60% at 50% 55%, rgba(10, 10, 12, 0.78), rgba(10, 10, 12, 0.35) 75%, transparent);
+  pointer-events: none;
+}
+.walk > * {
+  position: relative;
+}
+.walk.is-live .walk-stop,
+.walk.is-live .walk-card {
+  pointer-events: auto;
+}
+.walk-head {
+  text-align: center;
+  max-width: 760px;
+}
+.walk-head .kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.walk-head h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(28px, 4vw, 52px);
+  line-height: 1.05;
+  margin: 0 0 10px;
+  text-shadow: 0 0 40px rgba(212, 163, 89, 0.2);
+}
+.walk-intro {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.4vw, 19px);
+  color: var(--paper-dim);
+  margin: 0 0 8px;
+}
+.walk-map {
+  position: relative;
+  width: min(900px, 100%, calc((100svh - 480px) * 1.786));
+  aspect-ratio: 1000 / 560;
+}
+.walk-map svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.walk-route {
+  fill: none;
+  stroke: #efe3cc;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.92;
+}
+.walk-route-under {
+  stroke: var(--amber);
+  stroke-width: 13;
+  opacity: 0.32;
+}
+.walk-evening {
+  fill: none;
+  stroke: #e0683a;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 0.5 11;
+}
+.walk-wave {
+  fill: none;
+  stroke: #8fa3b8;
+  stroke-width: 1.6;
+  opacity: 0.4;
+  animation: tide 7s ease-in-out infinite alternate;
+}
+@keyframes tide {
+  to {
+    transform: translateX(-28px);
+  }
+}
+.walk-sea,
+.walk-landmark text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  fill: rgba(239, 227, 204, 0.5);
+}
+.walk-landmark rect,
+.walk-landmark path {
+  fill: none;
+  stroke: rgba(239, 227, 204, 0.4);
+  stroke-width: 1.5;
+}
+.walk-stop {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  pointer-events: none;
+}
+.walk-dot {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-family: var(--serif);
+  font-size: 16px;
+  color: #1a130a;
+  background: var(--amber);
+  box-shadow: 0 0 0 5px rgba(212, 163, 89, 0.18), 0 0 28px rgba(212, 163, 89, 0.55);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s;
+}
+.walk-stop.is-evening .walk-dot {
+  background: #e0683a;
+  box-shadow: 0 0 0 5px rgba(224, 104, 58, 0.18), 0 0 26px rgba(224, 104, 58, 0.5);
+}
+.walk-stop:hover .walk-dot,
+.walk-stop.is-on .walk-dot {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 9px rgba(212, 163, 89, 0.22), 0 0 40px rgba(212, 163, 89, 0.8);
+}
+.walk-stop:focus-visible {
+  outline: none;
+}
+.walk-stop:focus-visible .walk-dot {
+  outline: 2px solid #fff3dd;
+  outline-offset: 4px;
+}
+.walk-name {
+  position: absolute;
+  left: 44px;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--paper);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
+}
+/* The dry cleaner's sits at the right edge: label to the left of its dot. */
+.walk-stop:nth-of-type(4) .walk-name {
+  left: auto;
+  right: 44px;
+}
+.walk-card-slot {
+  width: min(640px, 100%);
+  min-height: 150px;
+  margin-top: 14px;
+  display: grid;
+  align-items: start;
+}
+.walk-card {
+  position: relative;
+  padding: 18px 22px 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(212, 163, 89, 0.35);
+  background: rgba(14, 13, 17, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.walk-card .kicker {
+  margin-bottom: 6px;
+  padding-right: 32px;
+}
+.walk-card h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+.walk-card blockquote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.55;
+  color: rgba(239, 227, 204, 0.9);
+}
+.walk-cite {
+  margin: 10px 0 0;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+.walk-card-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+.walk-hint {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+}
+
+/* ---------- Atmosphere mixer ---------- */
+.mixer {
+  position: relative;
+}
+.mixer-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 40;
+  width: 300px;
+  max-width: calc(100vw - 32px);
+  padding: 16px 16px 12px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(14, 13, 17, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+  color: var(--paper);
+  transform-origin: top right;
+}
+.mixer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.mixer-head .kicker {
+  margin: 0;
+}
+.mixer-power {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  font-size: 12px;
+  color: var(--paper-dim);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+}
+.mixer-power.is-on {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #1a130a;
+}
+.mixer-row {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  column-gap: 10px;
+  row-gap: 6px;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  color: var(--paper-dim);
+  transition: color 0.3s;
+}
+.mixer-row.is-live {
+  color: var(--paper);
+}
+.mixer-row svg {
+  color: var(--amber);
+}
+.mixer-label {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+.mixer-row input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 4px;
+  margin: 4px 0;
+  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(90deg, var(--amber) var(--fill), rgba(239, 227, 204, 0.14) var(--fill));
+  cursor: pointer;
+}
+.mixer-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff3dd;
+  border: 3px solid var(--amber);
+  box-shadow: 0 0 12px rgba(212, 163, 89, 0.6);
+}
+.mixer-row input[type="range"]::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff3dd;
+  border: 3px solid var(--amber);
+}
+.mixer-row input[type="range"]:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 4px;
+}
+.mixer-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--paper-dim);
+}
+
+/* ---------- v2 responsive ---------- */
+@media (max-width: 900px) {
+  .bento {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 820px) {
+  .featured {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .featured-hook {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .book3d {
+    max-height: 62vh;
+  }
+}
+@media (max-width: 720px) {
+  .walk {
+    padding-top: 70px;
+  }
+  .walk-name {
+    display: none;
+  }
+  .walk-dot {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  .walk-map {
+    width: 100%;
+  }
+  .walk-card blockquote {
+    font-size: 16px;
+  }
+  .bento-tile {
+    min-height: 132px;
+    padding: 18px 16px 16px;
+    border-radius: 18px;
+  }
+  .bento-icon {
+    top: 16px;
+    right: 16px;
+  }
+}
+@media (max-width: 420px) {
+  .bento-title {
+    font-size: 19px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .walk-wave,
+  .live-dot {
+    animation: none;
+  }
+}

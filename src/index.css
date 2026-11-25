@@ -59,7 +59,7 @@ button {
     radial-gradient(120% 90% at 50% 50%, #121116, #0a0a0c 70%);
 }
 .scroll-spacer {
-  height: 760vh;
+  height: 980vh;
   pointer-events: none;
 }
 

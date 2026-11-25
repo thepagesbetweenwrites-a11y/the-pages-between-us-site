@@ -28,7 +28,10 @@ export function usePath() {
 export function navigate(to: string, { replace = false } = {}) {
   const url = new URL(to, window.location.origin);
   if (normalize(url.pathname) === normalize(window.location.pathname) && url.hash === window.location.hash) return;
+  const hashChanged = url.hash !== window.location.hash;
   if (replace) window.history.replaceState(null, "", url);
   else window.history.pushState(null, "", url);
   window.dispatchEvent(new Event(EVENT));
+  // pushState never fires hashchange; rooms listen for it to follow in-room deep links.
+  if (hashChanged) window.dispatchEvent(new HashChangeEvent("hashchange"));
 }

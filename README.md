@@ -4,8 +4,8 @@ The website of Satyam K. ([booksbysatyam.com](https://booksbysatyam.com)), in th
 
 | Route | Room | What's there |
 |---|---|---|
-| `/` | The Quiet Desk | Lantern-and-dust WebGL shader, kinetic name, manifesto, 3D-tilting book for *The Bookshop at Fujinomachi*, Coming Next, magnetic links to @satyamk.writes and @satyam.uncut |
-| `/fujinomachi` | Living Book | Scroll journey through Fujinomachi (fluid lantern shader, dust, maple leaves, ink-bleed calligraphy, inspectable artifacts), the Chapter 01 reader, PNG quote cards and the Tsukiyomi Books Counter guestbook |
+| `/` | The Midnight Desk | Volumetric desk-lamp beam shader with ink-dust and film grain, kinetic name + manifesto, a 3D cloth-bound hardcover (linen boards, gold-foil title, cream page block) that tilts with the pointer and swings open into `/fujinomachi`, and a glass Bento Dock (Chapter 01, Chapter 02 status, walk map, verse archive, Instagram) |
+| `/fujinomachi` | Living Book | Scroll journey through Fujinomachi, the 12-Minute Walk map (brush-stroke route, 5 stops quoting Chapter 01), the Chapter 01 reader, PNG quote cards, the Tsukiyomi Books Counter, and the Atmosphere Mixer (sea, furin, rain) in the top bar. Deep links: `#walk`, `#read` |
 | `/notes` | Field Notes | Dispatches plus a collapsible Early Verse & Essays (2018–2020) archive |
 
 Routing is a small History-API router (`src/lib/router.ts`); `vercel.json` rewrites every path to `index.html` and sets the security headers (CSP, X-Frame-Options, nosniff, Referrer-Policy, HSTS). Author identity lives in `src/config/site.ts`; dispatches and archive pieces in `src/data/notes.ts`.

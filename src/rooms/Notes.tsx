@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion as m } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { SiteHeader } from "../components/Link";
@@ -51,7 +51,14 @@ function Piece({ p }: { p: ArchivePiece }) {
 }
 
 export default function Notes() {
-  const [archiveOpen, setArchiveOpen] = useState(false);
+  const [archiveOpen, setArchiveOpen] = useState(() => window.location.hash === "#archive");
+  const archiveRef = useRef<HTMLElement>(null);
+  // Deep link from the Desk: open the archive and bring it into view.
+  useEffect(() => {
+    if (window.location.hash !== "#archive") return;
+    const id = window.setTimeout(() => archiveRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 650);
+    return () => window.clearTimeout(id);
+  }, []);
   return (
     <div className="notes">
       <div className="notes-glow" aria-hidden />
@@ -60,7 +67,7 @@ export default function Notes() {
         <header className="notes-head">
           <p className="kicker">Field Notes</p>
           <h1>From the desk</h1>
-          <p className="notes-sub">Dispatches from the writing of {SITE.book.title}, and older things kept on purpose.</p>
+          <p className="notes-sub">Dispatches from the writing of {SITE.book.title}.</p>
         </header>
 
         <section className="dispatches" aria-label="Dispatches">
@@ -75,7 +82,7 @@ export default function Notes() {
           ))}
         </section>
 
-        <section className="archive" aria-labelledby="archive-title">
+        <section className="archive" id="archive" ref={archiveRef} aria-labelledby="archive-title">
           <button
             className="archive-toggle"
             onClick={() => setArchiveOpen((o) => !o)}

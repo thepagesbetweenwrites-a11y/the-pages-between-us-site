@@ -14,6 +14,7 @@ import { getState, setState, useUI } from "../lib/store";
 import type { Mode } from "../lib/store";
 import { loadFonts } from "../lib/textures";
 import { soundscape } from "../lib/audio";
+import { RETURN_SCROLL, WALK_SCROLL } from "../lib/journey";
 
 export default function FujinomachiRoom() {
   const mode = useUI((s) => s.mode);
@@ -43,6 +44,7 @@ export default function FujinomachiRoom() {
         inspect: null,
         guestbookOpen: false,
         audioOn: false,
+        mixerOpen: false,
         inkTransition: { ...getState().inkTransition, active: false },
       });
     },
@@ -66,7 +68,27 @@ export default function FujinomachiRoom() {
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
+    // Deep links: #read opens Chapter 01, #walk lands on the map. Handled on mount
+    // and on later hash changes (same-room links don't remount the room).
+    const onHash = () => {
+      const hash = window.location.hash;
+      if (hash === "#read") setState({ mode: "reader", inspect: null });
+      else if (hash === "#walk") {
+        if (getState().mode !== "journey") setState({ mode: "journey" });
+        // Lenis measures lazily: wait until the journey has a real scroll height.
+        const land = (tries = 0) => {
+          if (lenisRef.current !== lenis) return;
+          lenis.resize();
+          if (lenis.limit > window.innerHeight) lenis.scrollTo(lenis.limit * WALK_SCROLL, { immediate: true, force: true });
+          else if (tries < 90) requestAnimationFrame(() => land(tries + 1));
+        };
+        requestAnimationFrame(() => land());
+      }
+    };
+    onHash();
+    window.addEventListener("hashchange", onHash);
     return () => {
+      window.removeEventListener("hashchange", onHash);
       cancelAnimationFrame(raf);
       lenis.destroy();
       lenisRef.current = null;
@@ -126,7 +148,7 @@ export default function FujinomachiRoom() {
         onCovered={(target) => {
           setState({ mode: target });
           if (target === "journey") {
-            requestAnimationFrame(() => lenisRef.current?.scrollTo(lenisRef.current.limit * 0.86, { immediate: true }));
+            requestAnimationFrame(() => lenisRef.current?.scrollTo(lenisRef.current.limit * RETURN_SCROLL, { immediate: true }));
           } else {
             window.scrollTo(0, 0);
           }

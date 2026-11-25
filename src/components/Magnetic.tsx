@@ -4,7 +4,7 @@ import { motion as m, useMotionValue, useSpring } from "framer-motion";
 import { motion } from "../lib/motion";
 
 /** Pulls its child toward the cursor while hovered, then springs back. */
-export function Magnetic({ children, strength = 0.35 }: { children: ReactNode; strength?: number }) {
+export function Magnetic({ children, strength = 0.35, className = "" }: { children: ReactNode; strength?: number; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -23,7 +23,7 @@ export function Magnetic({ children, strength = 0.35 }: { children: ReactNode; s
   };
 
   return (
-    <m.span ref={ref} className="magnetic" style={{ x: sx, y: sy }} onPointerMove={onMove} onPointerLeave={reset}>
+    <m.span ref={ref} className={`magnetic ${className}`} style={{ x: sx, y: sy }} onPointerMove={onMove} onPointerLeave={reset}>
       {children}
     </m.span>
   );

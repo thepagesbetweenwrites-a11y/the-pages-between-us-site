@@ -1,4 +1,4 @@
-// Field Notes content. Dispatches are current; the archive holds six early pieces
+// Field Notes content. Dispatches are in the author's words; the archive holds six early pieces
 // first posted on bloggingboy.home.blog (2019–2020), re-cased from all-caps and
 // otherwise left as written. Stanzas are separated by blank lines.
 
@@ -20,19 +20,10 @@ export interface ArchivePiece {
 
 export const DISPATCHES: Dispatch[] = [
   {
-    date: "2026-11-25",
-    title: "The book has a name",
-    body: [
-      "For seven months I called it The Pages Between Us. The working title stays on the manuscript folder; the cover now says The Bookshop at Fujinomachi.",
-      "The bookshop was always the centre. Hana's grandmother's shelves, the register, the curtain drawn at closing. The title should have said so from the start.",
-    ],
-  },
-  {
     date: "2026-11-18",
-    title: "Chapter 01 is locked",
+    title: "On locking Chapter 01",
     body: [
-      "Aru steps off the train at Fujinomachi Station on a Sunday afternoon in November, a suitcase his Ma packed too full and a phone full of messages he hasn't answered.",
-      "The chapter is finished and open to read in the Fujinomachi room. Chapter 02 belongs to Hana.",
+      "Chapter 01 took 3,105 words, four rewrites, and a jar of mango pickle wedged between sweaters. If you've ever packed a bag for somewhere nobody knows your name, this one is for you.",
     ],
   },
 ];

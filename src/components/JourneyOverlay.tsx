@@ -5,6 +5,8 @@ import { CAMERA_END, CAMERA_START, STATIONS } from "../three/Experience";
 import { setState, useUI } from "../lib/store";
 import type { ArtifactId } from "../lib/store";
 import { BOOK_TITLE, chapters } from "../data/chapters";
+import { WalkMap } from "./WalkMap";
+import { CTA_RANGE } from "../lib/journey";
 
 const span = CAMERA_START - CAMERA_END;
 /** Scroll progress at which the camera sits `lead` units in front of station z. */
@@ -44,8 +46,8 @@ export function JourneyOverlay({ progress, onEnter }: { progress: MotionValue<nu
   const tix = useBand(progress, at(STATIONS.ticket, 4), 0.05);
   const note = useBand(progress, at(STATIONS.note, 4), 0.05);
   const letter = useBand(progress, at(STATIONS.letter, 4), 0.05);
-  const cta = useTransform(progress, [0.84, 0.93], [0, 1]);
-  const ctaY = useTransform(progress, [0.84, 0.93], [40, 0]);
+  const cta = useTransform(progress, CTA_RANGE, [0, 1]);
+  const ctaY = useTransform(progress, CTA_RANGE, [40, 0]);
   const bar = useTransform(progress, [0, 1], ["0%", "100%"]);
   const ch = chapters[0];
 
@@ -87,6 +89,8 @@ export function JourneyOverlay({ progress, onEnter }: { progress: MotionValue<nu
         <span className="caption-kicker">Click to inspect</span>
         <span>A letter from the archive, 1913.</span>
       </m.aside>
+
+      <WalkMap progress={progress} />
 
       <m.div className="enter" style={{ opacity: cta, y: ctaY }}>
         <p className="enter-meta">
