@@ -97,7 +97,8 @@ button {
 .hero-title {
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(44px, 8.2vw, 128px);
+  font-size: clamp(44px, 6.8vw, 112px);
+  max-width: 14ch;
   line-height: 0.98;
   letter-spacing: -0.02em;
   margin: 0;

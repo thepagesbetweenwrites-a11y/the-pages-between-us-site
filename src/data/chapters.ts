@@ -8,7 +8,8 @@ export interface Chapter {
   words: number;
 }
 
-export const BOOK_TITLE = "The Pages Between Us";
+export const BOOK_TITLE = "The Bookshop at Fujinomachi";
+export const BOOK_AUTHOR = "Satyam K.";
 
 export const chapters: Chapter[] = [
   {

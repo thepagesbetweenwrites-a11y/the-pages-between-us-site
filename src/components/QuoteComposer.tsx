@@ -3,6 +3,9 @@ import { motion as m } from "framer-motion";
 import { Check, Copy, Download, X } from "lucide-react";
 import type { Chapter } from "../data/chapters";
 import { BOOK_TITLE } from "../data/chapters";
+import { SITE } from "../config/site";
+
+const SLUG = BOOK_TITLE.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 function sentences(text: string) {
   return (text.match(/[^.!?…]+[.!?…]+[”"’)]*|[^.!?…]+$/g) ?? [text]).map((s) => s.trim()).filter(Boolean);
@@ -69,12 +72,15 @@ async function renderCard(text: string, theme: "night" | "parchment", chapter: C
   ctx.fillText(BOOK_TITLE, 110, H - 160);
   ctx.globalAlpha = 0.6;
   ctx.font = "400 26px 'Inter', sans-serif";
-  ctx.fillText(`CHAPTER ${String(chapter.number).padStart(2, "0")} · ${chapter.title.toUpperCase()}`, 110, H - 112);
+  ctx.fillText(`${SITE.author.toUpperCase()} · CHAPTER ${String(chapter.number).padStart(2, "0")} · ${chapter.title.toUpperCase()}`, 110, H - 112);
+  ctx.globalAlpha = 0.42;
+  ctx.font = "400 22px 'Inter', sans-serif";
+  ctx.fillText(`${SITE.name} · ${SITE.domain}`, 110, H - 72);
   ctx.globalAlpha = 0.85;
   ctx.fillStyle = amber;
   ctx.font = "700 64px 'Shippori Mincho', serif";
   ctx.textAlign = "right";
-  ctx.fillText("月", W - 110, H - 112);
+  ctx.fillText("月", W - 110, H - 96);
   return new Promise<Blob>((res, rej) => c.toBlob((b) => (b ? res(b) : rej(new Error("toBlob"))), "image/png"));
 }
 
@@ -96,7 +102,7 @@ export function QuoteComposer({
   const quote = parts.filter((_, i) => picked[i]).join(" ") || parts[0];
 
   const copy = async () => {
-    const out = `“${quote}”\n— ${BOOK_TITLE}, Chapter ${chapter.number}`;
+    const out = `“${quote}”\n— ${SITE.author}, ${BOOK_TITLE}, Chapter ${chapter.number}\n${SITE.domain}`;
     try {
       await navigator.clipboard.writeText(out);
       setCopied(true);
@@ -110,7 +116,7 @@ export function QuoteComposer({
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `the-pages-between-us-ch${String(chapter.number).padStart(2, "0")}-quote.png`;
+    a.download = `${SLUG}-ch${String(chapter.number).padStart(2, "0")}-quote.png`;
     a.click();
     window.setTimeout(() => URL.revokeObjectURL(url), 2000);
   };
@@ -135,7 +141,9 @@ export function QuoteComposer({
           <p>{quote}</p>
           <div className="quote-foot">
             <span>{BOOK_TITLE}</span>
-            <span>Chapter {String(chapter.number).padStart(2, "0")} · {chapter.title}</span>
+            <span>
+              {SITE.author} · Chapter {String(chapter.number).padStart(2, "0")} · {chapter.title}
+            </span>
           </div>
         </div>
         {parts.length > 1 && (

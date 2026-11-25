@@ -5,6 +5,7 @@ import { ArrowLeft, Moon, ScrollText, Minus, Plus, Quote } from "lucide-react";
 import { chapters } from "../data/chapters";
 import { QuoteComposer } from "./QuoteComposer";
 import { soundscape } from "../lib/audio";
+import { SITE } from "../config/site";
 
 type Theme = "night" | "parchment";
 
@@ -130,6 +131,7 @@ export function Reader({ onExit }: { onExit: () => void }) {
               <ArrowLeft size={15} strokeWidth={1.5} />
               <span>Back to Fujinomachi</span>
             </button>
+            <p className="sample-mark">© {SITE.year} {SITE.author} · End of Chapter 01 Sample</p>
           </footer>
         </article>
       </div>

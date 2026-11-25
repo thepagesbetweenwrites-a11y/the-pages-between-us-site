@@ -1,8 +1,16 @@
-# The Pages Between Us — Website
+# Books by Satyam — Author Hub
 
-An interactive WebGL reading experience for the novel *The Pages Between Us*: a scroll-driven journey through Fujinomachi (fluid lantern shader, dust, falling maple leaves, ink-bleed calligraphy, inspectable artifacts) that opens into a distraction-free reader for Chapter 01.
+The website of Satyam K. ([booksbysatyam.com](https://booksbysatyam.com)), in three rooms:
 
-Built with Vite, React 19, TypeScript, three.js, React Three Fiber, drei, @react-three/postprocessing, GSAP, Lenis and framer-motion.
+| Route | Room | What's there |
+|---|---|---|
+| `/` | The Quiet Desk | Lantern-and-dust WebGL shader, kinetic name, manifesto, 3D-tilting book for *The Bookshop at Fujinomachi*, Coming Next, magnetic links to @satyamk.writes and @satyam.uncut |
+| `/fujinomachi` | Living Book | Scroll journey through Fujinomachi (fluid lantern shader, dust, maple leaves, ink-bleed calligraphy, inspectable artifacts), the Chapter 01 reader, PNG quote cards and the Tsukiyomi Books Counter guestbook |
+| `/notes` | Field Notes | Dispatches plus a collapsible Early Verse & Essays (2018–2020) archive |
+
+Routing is a small History-API router (`src/lib/router.ts`); `vercel.json` rewrites every path to `index.html` and sets the security headers (CSP, X-Frame-Options, nosniff, Referrer-Policy, HSTS). Author identity lives in `src/config/site.ts`; dispatches and archive pieces in `src/data/notes.ts`.
+
+Built with Vite, React 19, TypeScript, three.js, React Three Fiber, @react-three/postprocessing, GSAP, Lenis and framer-motion.
 
 ## Run
 
@@ -36,4 +44,4 @@ With the dev server running on port 5180 (`npx vite --port 5180`), `npm run prev
 - No WebGL (old GPU, locked-down drivers): the 3D stage falls back to a still backdrop and the reader still works.
 - Sound is synthesized with the Web Audio API (no audio files) and starts only after the visitor turns it on.
 
-© The author. All rights reserved. The novel text in `src/data/chapters.ts` is not licensed for reuse.
+© 2026 Satyam K. All rights reserved. The novel text in `src/data/chapters.ts` is not licensed for reuse.
